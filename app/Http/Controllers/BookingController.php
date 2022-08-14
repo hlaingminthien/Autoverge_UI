@@ -88,7 +88,7 @@ class BookingController extends Controller
     {   
         $resp =  Http::withHeaders([
             'Authentication-Info' => $this->token,
-        ])->get($this->url.'bookin/delete/'.$request->id);
+        ])->get($this->url.'booking/delete/'.$request->id);
 
         return 'Data is deleted successfully!';
     }

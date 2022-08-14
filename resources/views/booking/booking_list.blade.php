@@ -9,6 +9,7 @@
       <table class="table" id="bookingTabel">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Booking Date</th>
             <th>Customer</th>
             <th>Email</th>
@@ -22,7 +23,8 @@
         <tbody>
           @foreach ($data as $list)
           <tr>
-            <td id="{{ $list['id'] }}">{{ $list['createdDate'] }}</td>
+            <td id="{{ $list['id'] }}">{{ $list['id'] }}</td>
+            <td>{{ $list['createdDate'] }}</td>
             <td>{{ $list['customer'] }}</td>
             <td>{{ $list['email'] }}</td>
             <td>{{ $list['carNo'] }}</td>
@@ -38,9 +40,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <span class="modal-title" id="exampleModalLabel">Edit Booking</span>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
                             <div class="card-body">
@@ -52,84 +52,82 @@
                                     <div id="loading-content{{$list['id']}}"></div>
                                 </section>
                                 <div class="row">
-                        <div class="col-6">
-                          <div class="form-group">
-                                <label class="entry-label">Customer Name <span class="mt-10 required-i">*</span></label>
-                                <select class="menu-select form-control" style="width: 100%;" name="customerId" 
-                                id="customerId{{$list['id']}}">
-                                @foreach ($customers as $customer)
-                                    <option value="{{ $customer['id'] }} " 
-                                    {{ $list['customerId'] == $customer['id'] ? 'selected' : ''}}
-                                    >{{ $customer['name'] }}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="entry-label">Service <span class="mt-10 required-i">*</span></label>
-                                <select class="menu-select form-control" style="width: 100%;" name="service" 
-                                id="service{{$list['id']}}">
-                                @foreach ($services as $service)
-                                    <option value="{{ $service['name'] }} " 
-                                    {{ $list['service'] == $service['name'] ? 'selected' : ''}}>{{ $service['name'] }}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                            <label class="entry-label">Duration <span class="mt-10 required-i">*</span></label>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <input type="number" class="entry-input form-control" aria-describedby="inputGroup-sizing-default"
-                                    name="durationDay" value="{{$list['durationDay']}}" id="durationDay{{$list['id']}}" required>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="entry-label">Customer Name <span class="mt-10 required-i">*</span></label>
+                                            <select class="menu-select form-control" style="width: 100%;" name="customerId" 
+                                            id="customerId{{ $list['id'] }}">
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer['id'] }} " 
+                                                {{ $list['customerId']  == $customer['id']  ? 'selected' : ''}}>{{ $customer['name'] }}</option>
+                                            @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="entry-label">Service <span class="mt-10 required-i">*</span></label>
+                                            <select class="menu-select form-control" style="width: 100%;" name="service" 
+                                            id="service_book{{$list['id']}}">
+                                            @foreach ($services as $service)
+                                                <option value="{{ $service['name'] }} " 
+                                                {{ $list['service'] == $service['name']  ? 'selected' : ''}}>{{ $service['name'] }}</option>
+                                            @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="entry-label">Duration <span class="mt-10 required-i">*</span></label>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input type="number" class="entry-input form-control" aria-describedby="inputGroup-sizing-default"
+                                            name="durationDay" value="{{$list['durationDay']}}" id="durationDay{{$list['id']}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select class="menu-select form-control" style="width: 100%;" name="durationType" 
+                                            id="durationType{{$list['id']}}">
+                                                <option value=1 {{ $list['durationType'] == 1 ? 'selected' : ''}}>Week</option>
+                                                <option value=2 {{ $list['durationType'] == 2 ? 'selected' : ''}}>Day</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="entry-label">Car Number <span class="mt-10 required-i">*</span></label>
+                                            <input type="text" class="entry-input form-control" aria-describedby="inputGroup-sizing-default"
+                                            name="carNo" id="carNo{{$list['id']}}" value="{{$list['carNo']}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="entry-label">Note <span class="mt-10 required-i">*</span></label>
+                                            <input type="text" class="entry-input form-control" aria-describedby="inputGroup-sizing-default"
+                                            name="note" id="note{{$list['id']}}" value="{{$list['note']}}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select class="menu-select form-control" style="width: 100%;" name="status{{$list['id']}}" 
+                                            id="status{{$list['id']}}">
+                                                <option value=1 {{ $list['status'] == 1 ? 'selected' : ''}}>Pending</option>
+                                                <option value=2 {{ $list['status'] == 2 ? 'selected' : ''}}>Complete</option>
+                                                <option value=3 {{ $list['status'] == 3 ? 'selected' : ''}}>Paid</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <select class="menu-select form-control" style="width: 100%;" name="durationType" 
-                                    id="durationType{{$list['id']}}">
-                                        <option value="1" {{ $list['durationType'] == 1 ? 'selected' : ''}}>Week</option>
-                                        <option value="2" {{ $list['durationType'] == 2 ? 'selected' : ''}}>Day</option>
-                                    </select>
-                                </div>
-                            </div>
-                      </div>
-                      <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="entry-label">Car Number <span class="mt-10 required-i">*</span></label>
-                                    <input type="text" class="entry-input form-control" aria-describedby="inputGroup-sizing-default"
-                                    name="carNo" value="{{$list['carNo']}}" id="carNo{{$list['id']}}" required>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="entry-label">Note <span class="mt-10 required-i">*</span></label>
-                                    <input type="text" class="entry-input form-control" aria-describedby="inputGroup-sizing-default"
-                                    name="note" id="note{{$list['id']}}" value="{{$list['note']}}" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="entry-label">Status <span class="mt-10 required-i">*</span></label>
-                                    <select class="menu-select form-control" style="width: 100%;" name="status" 
-                                    id="status_book{{$list['id']}}">
-                                        <option value=1 {{ $list['status'] == 1 ? 'selected' : ''}}>Pending</option>
-                                        <option value=2 {{ $list['status'] == 2 ? 'selected' : ''}}>Complete</option>
-                                        <option value=3 {{ $list['status'] == 3 ? 'selected' : ''}}>Paid</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn save-btn" id="editbooking{{$list['id']}}">Save</button>
-                            <button type="button" class="btn cancel-btn" id="editCancel{{$list['id']}}" data-dismiss="modal">Cancel</button>
+                            <button class="btn save-btn" id="editbooking{{$list['id']}}">Save</button>
+                            <button class="btn cancel-btn" id="editCancel{{$list['id']}}" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -246,8 +244,19 @@
                                     name="note" id="note" required>
                                 </div>
                             </div>
-                      </div>
-                      
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <select class="menu-select form-control" style="width: 100%;" name="status" 
+                                    id="status">
+                                        <option value=1 >Pending</option>
+                                        <option value=2 >Complete</option>
+                                        <option value=3 >Paid</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -299,6 +308,10 @@
         },
         {
             "bSortable": true
+        },
+        {
+            "bSortable": true
+
         },
         {
             "bSortable": true
@@ -391,6 +404,7 @@
     
     var table = $('#bookingTabel').DataTable();
     $('#bookingTabel tbody').on('click', 'tr', function () {
+        console.log(table.row(this).data()[0]);
       primaryid = table.row(this).data()[0];
 
       //  Deactivate
@@ -425,6 +439,7 @@
 
       // Edit
       jQuery('#editbooking'+primaryid).click(function(e){
+        console.log('edit');
         $("#editCancel"+primaryid).prop("disabled", true);
         $("#editbooking"+primaryid).prop("disabled", true);
         showLoading('loading'+primaryid,'loading-content'+primaryid);
@@ -461,7 +476,8 @@
       }
       
       $formData.append('note',document.getElementById('note'+primaryid).value);
-      $formData.append('service',document.getElementById('service'+primaryid).value);
+      $formData.append('service',document.getElementById('service_book'+primaryid).value);
+      $formData.append('status',document.getElementById('status'+primaryid).value);
 
         e.preventDefault();
         $.ajax({
